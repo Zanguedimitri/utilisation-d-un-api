@@ -4,34 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="style.css">
         <title>Document</title>
 </head>
 <body>
     <script>
     $(document).ready(function(){
     $("#button").click(function(){
-     number=Math.ceil(Math.random()*150)+1;
+     var number=Math.ceil(Math.random()*150)+1;
        $.ajax({
-        dataType:"json",
+        type:'get',
         url:'https://pokeapi.co/api/v2/pokemon/'+ number,
-        type:'post',
-        success
+        success:function(data){
+            var name=data.name;
+            var type=data.id;
+            var img=data.sprites.front_default;
+            $("#image").attr('src',img);
+            $("#name").html(name);
+            $("#number").html(type);
+        },
        });
     });
     });
     </script>
     <div id="wrapper" >
         <div id="wrapper-image" >
-            <img id="image" src="" alt="">
+            <img id="image" src="">
         </div>
         <div id="header" >
             <div id="number" ></div>
             <div id="name" ></div>
         </div>
-        <div  >
-            <button id="button">Get other Pokemon</button> 
-            <div id="num" ></div>
-        </div>
+        <div id="button" >Get other Pokemon</div>
     </div>
 </body>
 </html>
